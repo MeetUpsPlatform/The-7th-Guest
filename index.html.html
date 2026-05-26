@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<!-- saved from url=(0073)file:///Users/christine/Downloads/The_Seventh_Guest_Board_Firebase_2.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔪 The Seventh Guest — Film Production Board</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap');
+:root {
+  --ink:#1a1208;--blood:#8b1a1a;--blood-light:#c0392b;--parchment:#f5efe0;
+  --parchment-dark:#e8dfc8;--aged:#c9b99a;--gold:#b8860b;--gold-light:#d4a017;
+  --smoke:#4a4035;--mist:#7a6e5f;--shadow:rgba(26,18,8,0.18);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Courier Prime',monospace;background:#1a1208;color:var(--ink);min-height:100vh;
+  background-image:repeating-linear-gradient(0deg,transparent,transparent 24px,rgba(255,255,255,0.015) 24px,rgba(255,255,255,0.015) 25px),repeating-linear-gradient(90deg,transparent,transparent 24px,rgba(255,255,255,0.015) 24px,rgba(255,255,255,0.015) 25px);}
+.masthead{background:var(--blood);border-bottom:4px solid var(--gold);padding:1.2rem 2rem 0.8rem;text-align:center;position:relative;overflow:hidden;}
+.masthead::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 8px,rgba(0,0,0,0.08) 8px,rgba(0,0,0,0.08) 9px);}
+.masthead-inner{position:relative;}
+.masthead-eyebrow{font-size:0.65rem;letter-spacing:0.35em;color:var(--gold-light);text-transform:uppercase;margin-bottom:0.3rem;}
+.masthead h1{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.8rem);color:var(--parchment);line-height:1.1;text-shadow:2px 2px 0 rgba(0,0,0,0.4);}
+.masthead h1 em{color:var(--gold-light);font-style:italic;}
+.masthead-sub{font-size:0.7rem;color:var(--aged);margin-top:0.3rem;letter-spacing:0.12em;}
+.tab-bar{background:#120d06;border-bottom:2px solid var(--gold);display:flex;overflow-x:auto;padding:0 0.5rem;gap:0;flex-wrap:nowrap;}
+.tab-bar::-webkit-scrollbar{height:3px;}.tab-bar::-webkit-scrollbar-thumb{background:var(--gold);}
+.tab-btn{font-family:'Special Elite',cursive;font-size:0.72rem;letter-spacing:0.06em;color:var(--aged);background:none;border:none;border-bottom:3px solid transparent;padding:0.65rem 0.9rem;cursor:pointer;white-space:nowrap;transition:color 0.2s,border-color 0.2s;text-transform:uppercase;}
+.tab-btn:hover{color:var(--parchment);}.tab-btn.active{color:var(--gold-light);border-bottom-color:var(--gold-light);}
+.board-wrap{max-width:1400px;margin:0 auto;padding:1.2rem;}
+.panel{display:none;}.panel.active{display:block;}
+.section-title{font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--gold-light);border-bottom:1px solid var(--gold);padding-bottom:0.35rem;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;}
+.badge{font-family:'Courier Prime',monospace;font-size:0.6rem;background:var(--blood);color:var(--parchment);padding:2px 7px;border-radius:2px;letter-spacing:0.08em;}
+.card{background:var(--parchment);border:1px solid var(--aged);border-radius:3px;padding:0.9rem 1.1rem;margin-bottom:0.9rem;position:relative;box-shadow:3px 3px 0 rgba(0,0,0,0.3);}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--blood);}
+.card.gold::before{background:var(--gold);}.card.smoke::before{background:var(--smoke);}
+.card-title{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--blood);margin-bottom:0.4rem;font-weight:700;}
+.card p,.card-body{font-size:0.82rem;color:var(--smoke);line-height:1.6;}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0.9rem;}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:0.9rem;}
+.grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:0.8rem;}
+
+/* CHARACTER CARDS */
+.char-card{background:var(--parchment);border:1px solid var(--aged);border-radius:3px;padding:1rem;box-shadow:3px 3px 0 rgba(0,0,0,0.35);position:relative;transition:transform 0.15s;}
+.char-card:hover{transform:translateY(-2px);}
+.char-number{position:absolute;top:-8px;right:8px;font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--blood);opacity:0.12;font-weight:700;line-height:1;}
+.char-name{font-family:'Playfair Display',serif;font-size:1rem;color:var(--blood);font-weight:700;margin-bottom:0.15rem;}
+.char-role{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;font-family:'Courier Prime',monospace;}
+.char-section{margin-bottom:0.5rem;}
+.char-section-title{font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--blood);font-weight:700;margin-bottom:0.2rem;border-bottom:1px solid var(--aged);padding-bottom:1px;}
+.char-field{font-size:0.78rem;color:var(--smoke);line-height:1.5;padding:2px 0;cursor:pointer;border-radius:2px;transition:background 0.15s;}
+.char-field:hover{background:rgba(184,134,11,0.08);}
+.char-field strong{color:var(--ink);font-weight:700;font-size:0.65rem;letter-spacing:0.06em;text-transform:uppercase;margin-right:4px;}
+.char-field em{opacity:0.4;font-style:italic;}
+
+/* SCENES */
+.scene-card{background:var(--parchment);border:1px solid var(--aged);border-radius:3px;padding:0.8rem 0.9rem;box-shadow:2px 2px 0 rgba(0,0,0,0.3);position:relative;margin-bottom:0.7rem;}
+.scene-num{font-family:'Special Elite',cursive;font-size:0.6rem;letter-spacing:0.2em;color:var(--blood);text-transform:uppercase;margin-bottom:0.2rem;}
+.scene-title-text{font-family:'Playfair Display',serif;font-size:0.9rem;color:var(--ink);font-weight:700;margin-bottom:0.4rem;}
+.scene-meta{display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.4rem;}
+.tag{font-size:0.62rem;padding:2px 7px;border-radius:2px;font-family:'Courier Prime',monospace;letter-spacing:0.04em;text-transform:uppercase;}
+.tag-loc{background:#2c1810;color:#d4a017;}.tag-time{background:#1a1a2e;color:#a0a8d0;}
+.tag-mood{background:#1a2810;color:#6aaa4a;}.tag-act{background:#1a0a2e;color:#c0a0d0;}
+.tag-status-draft{background:#2a1f0a;color:#d4a017;}.tag-status-locked{background:#1a0a0a;color:var(--blood-light);}.tag-status-done{background:#0a1a0a;color:#4aaa4a;}
+.scene-body{font-size:0.78rem;color:var(--smoke);line-height:1.55;}
+
+/* CLUES */
+.clue-board{background:#1e1208;border:2px solid var(--blood);border-radius:4px;padding:1.2rem;min-height:120px;}
+.clue-board-title{font-family:'Special Elite',cursive;color:var(--gold-light);font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;margin-bottom:0.8rem;border-bottom:1px solid var(--blood);padding-bottom:0.4rem;}
+.clue-item{display:flex;gap:0.7rem;align-items:flex-start;margin-bottom:0.7rem;padding:0.5rem 0.7rem;background:rgba(245,239,224,0.06);border-left:3px solid var(--blood);border-radius:0 2px 2px 0;}
+.clue-icon{font-size:1rem;line-height:1;flex-shrink:0;margin-top:1px;}
+.clue-text{font-size:0.78rem;color:var(--parchment-dark);line-height:1.5;}
+.clue-text strong{display:block;color:var(--gold-light);font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1px;}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:2rem;}
+.timeline::before{content:'';position:absolute;left:0.6rem;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--blood),var(--gold),var(--blood));}
+.tl-item{position:relative;margin-bottom:1rem;}
+.tl-dot{position:absolute;left:-1.6rem;top:0.3rem;width:13px;height:13px;border-radius:50%;background:var(--blood);border:2px solid var(--gold);z-index:1;}
+.tl-dot.gold{background:var(--gold);}.tl-dot.murder{background:var(--blood-light);box-shadow:0 0 6px rgba(192,57,43,0.6);}
+.tl-time{font-family:'Special Elite',cursive;font-size:0.62rem;letter-spacing:0.15em;color:var(--gold);text-transform:uppercase;margin-bottom:0.15rem;}
+.tl-title{font-family:'Playfair Display',serif;font-size:0.9rem;color:var(--parchment);font-weight:700;margin-bottom:0.15rem;}
+.tl-desc{font-size:0.78rem;color:var(--aged);line-height:1.5;}
+
+/* IDEAS */
+.sticky-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:0.9rem;}
+.sticky{padding:0.8rem;border-radius:2px;box-shadow:2px 3px 8px rgba(0,0,0,0.4);font-size:0.8rem;line-height:1.5;position:relative;min-height:90px;transform:rotate(var(--rot,0deg));transition:transform 0.2s;}
+.sticky:hover{transform:rotate(0deg) scale(1.02);z-index:2;}
+.sticky-yellow{background:#e8d44d;color:#2a2000;--rot:-1.2deg;}.sticky-orange{background:#e8924d;color:#2a0e00;--rot:0.8deg;}
+.sticky-pink{background:#e84d8a;color:#2a001a;--rot:-0.5deg;}.sticky-blue{background:#4d8ae8;color:#00112a;--rot:1.1deg;}
+.sticky-green{background:#4de88a;color:#00200e;--rot:-0.7deg;}.sticky-purple{background:#9b4de8;color:#100020;--rot:0.4deg;}
+.sticky-author{font-size:0.62rem;text-transform:uppercase;letter-spacing:0.1em;opacity:0.6;margin-top:0.5rem;font-weight:700;}
+.sticky-date{font-size:0.58rem;opacity:0.45;}
+
+/* NOTES */
+.note-card{background:var(--parchment);border-left:4px solid var(--blood);padding:0.7rem 0.9rem;margin-bottom:0.7rem;border-radius:0 3px 3px 0;box-shadow:2px 2px 0 rgba(0,0,0,0.2);}
+.note-meta{font-size:0.62rem;color:var(--mist);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:0.25rem;}
+.note-meta span{color:var(--blood);font-weight:700;}
+.note-text{font-size:0.82rem;color:var(--ink);line-height:1.6;}
+
+/* FORM */
+.add-form{background:var(--parchment-dark);border:1px solid var(--aged);border-radius:3px;padding:0.9rem 1.1rem;margin-bottom:1.2rem;box-shadow:inset 0 1px 3px rgba(0,0,0,0.1);}
+.add-form h3{font-family:'Special Elite',cursive;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--blood);margin-bottom:0.7rem;}
+.form-row{display:flex;gap:0.6rem;flex-wrap:wrap;align-items:flex-end;margin-bottom:0.5rem;}
+.form-group{display:flex;flex-direction:column;gap:0.15rem;flex:1;min-width:110px;}
+.form-group label{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mist);font-weight:700;}
+.form-group input,.form-group textarea,.form-group select{background:var(--parchment);border:1px solid var(--aged);border-radius:2px;font-family:'Courier Prime',monospace;font-size:0.8rem;color:var(--ink);padding:4px 7px;outline:none;transition:border-color 0.2s;}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--blood);}
+.form-group textarea{resize:vertical;min-height:55px;}
+.btn{font-family:'Special Elite',cursive;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;padding:5px 14px;border:none;border-radius:2px;cursor:pointer;transition:opacity 0.15s,transform 0.1s;white-space:nowrap;}
+.btn:hover{opacity:0.88;}.btn:active{transform:scale(0.97);}
+.btn-blood{background:var(--blood);color:var(--parchment);}.btn-gold{background:var(--gold);color:var(--ink);}
+.btn-smoke{background:var(--smoke);color:var(--parchment);}.btn-sm{font-size:0.65rem;padding:3px 9px;}
+
+/* STATS */
+.stats-row{display:flex;gap:0.8rem;flex-wrap:wrap;margin-bottom:1.2rem;}
+.stat-pill{background:var(--parchment);border:1px solid var(--aged);border-radius:2px;padding:0.4rem 0.9rem;display:flex;flex-direction:column;align-items:center;min-width:70px;box-shadow:2px 2px 0 rgba(0,0,0,0.25);}
+.stat-num{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--blood);font-weight:700;line-height:1;}
+.stat-label{font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);margin-top:1px;}
+
+/* SET LOCATION */
+.loc-card{background:var(--parchment);border:1px solid var(--aged);border-radius:3px;padding:0.9rem 1rem;box-shadow:3px 3px 0 rgba(0,0,0,0.3);position:relative;}
+.loc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--smoke);}
+.loc-name{font-family:'Playfair Display',serif;font-size:0.95rem;color:var(--smoke);font-weight:700;margin-bottom:0.2rem;}
+.loc-field{font-size:0.75rem;color:var(--smoke);margin-bottom:0.3rem;border-bottom:1px dashed var(--aged);padding-bottom:0.25rem;cursor:pointer;border-radius:2px;transition:background 0.15s;}
+.loc-field:hover{background:rgba(74,64,53,0.06);}
+.loc-field:last-child{border-bottom:none;}
+.loc-field strong{display:block;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--mist);margin-bottom:1px;}
+
+/* SCRIPT */
+.script-block{background:#1e1a14;border:1px solid var(--smoke);border-radius:3px;padding:1rem 1.2rem;margin-bottom:0.8rem;font-family:'Courier Prime',monospace;position:relative;}
+.script-slug{font-size:0.78rem;color:var(--gold-light);font-weight:700;letter-spacing:0.08em;margin-bottom:0.5rem;text-transform:uppercase;}
+.script-action{font-size:0.8rem;color:var(--aged);line-height:1.65;margin-bottom:0.5rem;}
+.script-char{font-size:0.78rem;color:var(--parchment);font-weight:700;text-align:center;margin-bottom:0.15rem;letter-spacing:0.05em;}
+.script-dialogue{font-size:0.8rem;color:var(--parchment-dark);line-height:1.6;margin:0 2rem 0.5rem;font-style:italic;}
+.script-direction{font-size:0.73rem;color:var(--mist);text-align:center;margin-bottom:0.4rem;}
+
+/* RELATIONSHIPS */
+.rel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:0.8rem;}
+.rel-card{background:var(--parchment);border:1px solid var(--aged);border-radius:3px;padding:0.8rem;box-shadow:2px 2px 0 rgba(0,0,0,0.25);}
+.rel-pair{font-family:'Playfair Display',serif;font-size:0.85rem;color:var(--blood);font-weight:700;margin-bottom:0.2rem;}
+.rel-type{font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem;}
+.rel-desc{font-size:0.76rem;color:var(--smoke);line-height:1.5;}
+
+/* CASTING */
+.cast-row{display:flex;align-items:center;gap:0.8rem;padding:0.6rem 0.8rem;background:var(--parchment);border:1px solid var(--aged);border-radius:3px;margin-bottom:0.5rem;box-shadow:2px 2px 0 rgba(0,0,0,0.2);}
+.cast-initials{width:36px;height:36px;border-radius:50%;background:var(--blood);color:var(--parchment);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:0.8rem;font-weight:700;flex-shrink:0;}
+.cast-info{flex:1;}
+.cast-name{font-family:'Playfair Display',serif;font-size:0.88rem;color:var(--ink);font-weight:700;}
+.cast-role{font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--gold);}
+.cast-status{font-size:0.65rem;padding:2px 8px;border-radius:2px;}
+.cast-confirmed{background:#0a1a0a;color:#4aaa4a;}.cast-considering{background:#2a1f0a;color:#d4a017;}.cast-needed{background:#1a0a0a;color:var(--blood-light);}
+
+/* DELETE */
+.del-btn{position:absolute;top:5px;right:7px;background:none;border:none;color:var(--aged);cursor:pointer;font-size:0.75rem;opacity:0.35;transition:opacity 0.15s,color 0.15s;font-family:monospace;}
+.del-btn:hover{opacity:1;color:var(--blood);}
+
+/* EMPTY */
+.empty-state{text-align:center;padding:2rem 1rem;color:var(--mist);font-size:0.82rem;font-style:italic;border:1px dashed var(--smoke);border-radius:3px;}
+.empty-state .ei{font-size:1.8rem;display:block;margin-bottom:0.4rem;}
+
+/* SUBSECTION */
+.subsection{margin-bottom:1.5rem;}
+.sub-title{font-family:'Special Elite',cursive;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;padding-bottom:0.25rem;border-bottom:1px dashed var(--smoke);}
+
+::-webkit-scrollbar{width:5px;height:5px;}::-webkit-scrollbar-track{background:#120d06;}::-webkit-scrollbar-thumb{background:var(--blood);border-radius:3px;}
+@media(max-width:600px){.board-wrap{padding:0.6rem;}.masthead{padding:0.8rem;}.tab-btn{padding:0.55rem 0.7rem;font-size:0.65rem;}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="masthead-eyebrow">★ Collaborative Film Production Board ★</p>
+    <h1><em>The Seventh Guest</em></h1>
+    <p class="masthead-sub">7 Characters · Murder Mystery · Build Together · Lives on GitHub Pages</p>
+  </div>
+</header>
+
+<nav class="tab-bar" id="tabBar">
+  <button class="tab-btn active" onclick="switchTab(&#39;overview&#39;,this)">📋 Overview</button>
+  <button class="tab-btn" onclick="switchTab(&#39;characters&#39;,this)">🎭 Characters</button>
+  <button class="tab-btn" onclick="switchTab(&#39;relationships&#39;,this)">🕸️ Relationships</button>
+  <button class="tab-btn" onclick="switchTab(&#39;plot&#39;,this)">📜 Plot</button>
+  <button class="tab-btn" onclick="switchTab(&#39;scenes&#39;,this)">🎬 Scenes</button>
+  <button class="tab-btn" onclick="switchTab(&#39;locations&#39;,this)">🏚️ Locations &amp; Sets</button>
+  <button class="tab-btn" onclick="switchTab(&#39;clues&#39;,this)">🔍 Clues</button>
+  <button class="tab-btn" onclick="switchTab(&#39;script&#39;,this)">📝 Script</button>
+  <button class="tab-btn" onclick="switchTab(&#39;casting&#39;,this)">🎤 Casting</button>
+  <button class="tab-btn" onclick="switchTab(&#39;production&#39;,this)">🎥 Production</button>
+  <button class="tab-btn" onclick="switchTab(&#39;ideas&#39;,this)">💡 Ideas</button>
+</nav>
+
+<main class="board-wrap">
+
+<!-- ═══════════ OVERVIEW ═══════════ -->
+<section class="panel active" id="panel-overview">
+  <div class="stats-row">
+    <div class="stat-pill"><span class="stat-num" id="st-chars">7</span><span class="stat-label">Characters</span></div>
+    <div class="stat-pill"><span class="stat-num" id="st-scenes">0</span><span class="stat-label">Scenes</span></div>
+    <div class="stat-pill"><span class="stat-num" id="st-locs">0</span><span class="stat-label">Locations</span></div>
+    <div class="stat-pill"><span class="stat-num" id="st-clues">0</span><span class="stat-label">Clues</span></div>
+    <div class="stat-pill"><span class="stat-num" id="st-ideas">3</span><span class="stat-label">Ideas</span></div>
+    <div class="stat-pill"><span class="stat-num" id="st-notes">0</span><span class="stat-label">Prod. Notes</span></div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:1rem">
+    <div class="card gold">
+      <div class="card-title">🎬 Film Title</div>
+      <p id="filmTitle" style="font-family:&#39;Playfair Display&#39;,serif;font-size:1.1rem;color:var(--blood);font-weight:700;">The Seventh Guest</p>
+      <button class="btn btn-gold btn-sm" style="margin-top:0.5rem" onclick="editField(&#39;filmTitle&#39;,&#39;Film Title&#39;)">Edit</button>
+    </div>
+    <div class="card">
+      <div class="card-title">✍️ Genre &amp; Tone</div>
+      <p id="genreTone">Murder Mystery / Psychological Thriller — slow-burn, atmospheric, 1930s English manor.</p>
+      <button class="btn btn-smoke btn-sm" style="margin-top:0.5rem" onclick="editField(&#39;genreTone&#39;,&#39;Genre &amp; Tone&#39;)">Edit</button>
+    </div>
+  </div>
+  <div class="grid-2" style="margin-bottom:1rem">
+    <div class="card">
+      <div class="card-title">📝 Logline</div>
+      <p id="logline" style="font-style:italic;">When a wealthy aristocrat is found dead at his own dinner party, each of the seven guests holds a secret — and only one of them is a killer.</p>
+      <button class="btn btn-smoke btn-sm" style="margin-top:0.5rem" onclick="editField(&#39;logline&#39;,&#39;Logline&#39;)">Edit</button>
+    </div>
+    <div class="card smoke">
+      <div class="card-title">🩸 The Victim</div>
+      <p id="victim">Lord Harrington — found slumped in the library, a poisoned glass of brandy at his side. The evening had barely begun.</p>
+      <button class="btn btn-blood btn-sm" style="margin-top:0.5rem" onclick="editField(&#39;victim&#39;,&#39;The Victim&#39;)">Edit</button>
+    </div>
+  </div>
+  <div class="grid-2" style="margin-bottom:1rem">
+    <div class="card">
+      <div class="card-title">🎭 Setting</div>
+      <p id="setting">Harrington Manor, rural England. October 1934. A storm has cut the telephone lines. No one can leave.</p>
+      <button class="btn btn-smoke btn-sm" style="margin-top:0.5rem" onclick="editField(&#39;setting&#39;,&#39;Setting&#39;)">Edit</button>
+    </div>
+    <div class="card gold">
+      <div class="card-title">💡 The Central Mystery</div>
+      <p id="mystery">Who is the seventh guest — the one who was not invited — and why did they come?</p>
+      <button class="btn btn-gold btn-sm" style="margin-top:0.5rem" onclick="editField(&#39;mystery&#39;,&#39;The Central Mystery&#39;)">Edit</button>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top:1.2rem">📣 Team Bulletin Board <span class="badge">Post updates here</span></div>
+  <div class="add-form">
+    <h3>+ Post a bulletin</h3>
+    <div class="form-row">
+      <div class="form-group" style="max-width:130px"><label>Your Name</label><input type="text" id="bullName" placeholder="e.g. Jordan"></div>
+      <div class="form-group" style="flex:3"><label>Message</label><input type="text" id="bullMsg" placeholder="e.g. I&#39;ve written Scene 3 — have a look!"></div>
+      <button class="btn btn-blood" onclick="addBulletin()">Post</button>
+    </div>
+  </div>
+  <div id="bulletins"><div class="note-card"><div class="note-meta"><span>Director</span> · 26 May 2026</div><div class="note-text">Welcome to The Seventh Guest production board! Every tab has a different part of the film to build. Click fields to edit, add scenes, locations, clues, relationships — everything lives here. Share this file on GitHub Pages so the whole team can use it.</div></div></div>
+</section>
+
+<!-- ═══════════ CHARACTERS ═══════════ -->
+<section class="panel" id="panel-characters">
+  <div class="section-title">🎭 The Seven Characters <span class="badge">Click any field to edit</span></div>
+  <div class="grid-3" id="charGrid">
+    <div class="char-card">
+      <div class="char-number">1</div>
+      <div class="char-name" onclick="editChar(0,&#39;name&#39;)">Lord Harrington</div>
+      <div class="char-role" onclick="editChar(0,&#39;role&#39;)">The Victim</div>
+      <div class="char-section">
+        <div class="char-section-title">🧍 Identity</div>
+        <div class="char-field" onclick="editChar(0,&#39;age&#39;)"><strong>Age</strong>58</div>
+        <div class="char-field" onclick="editChar(0,&#39;actor&#39;)"><strong>Actor</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(0,&#39;physDesc&#39;)"><strong>Physical description</strong>Silver-haired, imposing, a man used to commanding rooms.</div>
+        <div class="char-field" onclick="editChar(0,&#39;costume&#39;)"><strong>Costume</strong>Black dinner jacket, gold cufflinks, a ring he never removes.</div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🧠 Psychology</div>
+        <div class="char-field" onclick="editChar(0,&#39;personality&#39;)"><strong>Personality</strong>Arrogant, secretive, charming when it suited him.</div>
+        <div class="char-field" onclick="editChar(0,&#39;fear&#39;)"><strong>Greatest Fear</strong>That his past would destroy everything he had built.</div>
+        <div class="char-field" onclick="editChar(0,&#39;arc&#39;)"><strong>Character Arc</strong>Seen only in flashbacks after Act I — the more we learn, the more complex he becomes.</div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🔪 Mystery Role</div>
+        <div class="char-field" onclick="editChar(0,&#39;motive&#39;)"><strong>Motive</strong>N/A — the victim</div>
+        <div class="char-field" onclick="editChar(0,&#39;secret&#39;)"><strong>Dark Secret</strong>His entire fortune was built on a crime committed thirty years ago.</div>
+        <div class="char-field" onclick="editChar(0,&#39;keyLine&#39;)"><strong>Key Line</strong><em style="font-style:italic">"I have invited exactly the people I intended. No more, no less."</em></div>
+      </div>
+      <div class="char-field" onclick="editChar(0,&#39;notes&#39;)"><strong>Director Notes</strong><em>click to add</em></div>
+    </div>
+    <div class="char-card">
+      <div class="char-number">2</div>
+      <div class="char-name" onclick="editChar(1,&#39;name&#39;)">Character 2</div>
+      <div class="char-role" onclick="editChar(1,&#39;role&#39;)">The Spouse</div>
+      <div class="char-section">
+        <div class="char-section-title">🧍 Identity</div>
+        <div class="char-field" onclick="editChar(1,&#39;age&#39;)"><strong>Age</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(1,&#39;actor&#39;)"><strong>Actor</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(1,&#39;physDesc&#39;)"><strong>Physical description</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(1,&#39;costume&#39;)"><strong>Costume</strong><em>click to add</em></div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🧠 Psychology</div>
+        <div class="char-field" onclick="editChar(1,&#39;personality&#39;)"><strong>Personality</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(1,&#39;fear&#39;)"><strong>Greatest Fear</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(1,&#39;arc&#39;)"><strong>Character Arc</strong><em>click to add</em></div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🔪 Mystery Role</div>
+        <div class="char-field" onclick="editChar(1,&#39;motive&#39;)"><strong>Motive</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(1,&#39;secret&#39;)"><strong>Dark Secret</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(1,&#39;keyLine&#39;)"><strong>Key Line</strong><em>click to add</em></div>
+      </div>
+      <div class="char-field" onclick="editChar(1,&#39;notes&#39;)"><strong>Director Notes</strong><em>click to add</em></div>
+    </div>
+    <div class="char-card">
+      <div class="char-number">3</div>
+      <div class="char-name" onclick="editChar(2,&#39;name&#39;)">Character 3</div>
+      <div class="char-role" onclick="editChar(2,&#39;role&#39;)">The Butler</div>
+      <div class="char-section">
+        <div class="char-section-title">🧍 Identity</div>
+        <div class="char-field" onclick="editChar(2,&#39;age&#39;)"><strong>Age</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(2,&#39;actor&#39;)"><strong>Actor</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(2,&#39;physDesc&#39;)"><strong>Physical description</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(2,&#39;costume&#39;)"><strong>Costume</strong><em>click to add</em></div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🧠 Psychology</div>
+        <div class="char-field" onclick="editChar(2,&#39;personality&#39;)"><strong>Personality</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(2,&#39;fear&#39;)"><strong>Greatest Fear</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(2,&#39;arc&#39;)"><strong>Character Arc</strong><em>click to add</em></div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🔪 Mystery Role</div>
+        <div class="char-field" onclick="editChar(2,&#39;motive&#39;)"><strong>Motive</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(2,&#39;secret&#39;)"><strong>Dark Secret</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(2,&#39;keyLine&#39;)"><strong>Key Line</strong><em>click to add</em></div>
+      </div>
+      <div class="char-field" onclick="editChar(2,&#39;notes&#39;)"><strong>Director Notes</strong><em>click to add</em></div>
+    </div>
+    <div class="char-card">
+      <div class="char-number">4</div>
+      <div class="char-name" onclick="editChar(3,&#39;name&#39;)">Character 4</div>
+      <div class="char-role" onclick="editChar(3,&#39;role&#39;)">The Business Partner</div>
+      <div class="char-section">
+        <div class="char-section-title">🧍 Identity</div>
+        <div class="char-field" onclick="editChar(3,&#39;age&#39;)"><strong>Age</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(3,&#39;actor&#39;)"><strong>Actor</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(3,&#39;physDesc&#39;)"><strong>Physical description</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(3,&#39;costume&#39;)"><strong>Costume</strong><em>click to add</em></div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🧠 Psychology</div>
+        <div class="char-field" onclick="editChar(3,&#39;personality&#39;)"><strong>Personality</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(3,&#39;fear&#39;)"><strong>Greatest Fear</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(3,&#39;arc&#39;)"><strong>Character Arc</strong><em>click to add</em></div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🔪 Mystery Role</div>
+        <div class="char-field" onclick="editChar(3,&#39;motive&#39;)"><strong>Motive</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(3,&#39;secret&#39;)"><strong>Dark Secret</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(3,&#39;keyLine&#39;)"><strong>Key Line</strong><em>click to add</em></div>
+      </div>
+      <div class="char-field" onclick="editChar(3,&#39;notes&#39;)"><strong>Director Notes</strong><em>click to add</em></div>
+    </div>
+    <div class="char-card">
+      <div class="char-number">5</div>
+      <div class="char-name" onclick="editChar(4,&#39;name&#39;)">Character 5</div>
+      <div class="char-role" onclick="editChar(4,&#39;role&#39;)">The Old Friend</div>
+      <div class="char-section">
+        <div class="char-section-title">🧍 Identity</div>
+        <div class="char-field" onclick="editChar(4,&#39;age&#39;)"><strong>Age</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(4,&#39;actor&#39;)"><strong>Actor</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(4,&#39;physDesc&#39;)"><strong>Physical description</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(4,&#39;costume&#39;)"><strong>Costume</strong><em>click to add</em></div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🧠 Psychology</div>
+        <div class="char-field" onclick="editChar(4,&#39;personality&#39;)"><strong>Personality</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(4,&#39;fear&#39;)"><strong>Greatest Fear</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(4,&#39;arc&#39;)"><strong>Character Arc</strong><em>click to add</em></div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🔪 Mystery Role</div>
+        <div class="char-field" onclick="editChar(4,&#39;motive&#39;)"><strong>Motive</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(4,&#39;secret&#39;)"><strong>Dark Secret</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(4,&#39;keyLine&#39;)"><strong>Key Line</strong><em>click to add</em></div>
+      </div>
+      <div class="char-field" onclick="editChar(4,&#39;notes&#39;)"><strong>Director Notes</strong><em>click to add</em></div>
+    </div>
+    <div class="char-card">
+      <div class="char-number">6</div>
+      <div class="char-name" onclick="editChar(5,&#39;name&#39;)">Character 6</div>
+      <div class="char-role" onclick="editChar(5,&#39;role&#39;)">The Detective</div>
+      <div class="char-section">
+        <div class="char-section-title">🧍 Identity</div>
+        <div class="char-field" onclick="editChar(5,&#39;age&#39;)"><strong>Age</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(5,&#39;actor&#39;)"><strong>Actor</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(5,&#39;physDesc&#39;)"><strong>Physical description</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(5,&#39;costume&#39;)"><strong>Costume</strong><em>click to add</em></div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🧠 Psychology</div>
+        <div class="char-field" onclick="editChar(5,&#39;personality&#39;)"><strong>Personality</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(5,&#39;fear&#39;)"><strong>Greatest Fear</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(5,&#39;arc&#39;)"><strong>Character Arc</strong><em>click to add</em></div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🔪 Mystery Role</div>
+        <div class="char-field" onclick="editChar(5,&#39;motive&#39;)"><strong>Motive</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(5,&#39;secret&#39;)"><strong>Dark Secret</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(5,&#39;keyLine&#39;)"><strong>Key Line</strong><em>click to add</em></div>
+      </div>
+      <div class="char-field" onclick="editChar(5,&#39;notes&#39;)"><strong>Director Notes</strong><em>click to add</em></div>
+    </div>
+    <div class="char-card">
+      <div class="char-number">7</div>
+      <div class="char-name" onclick="editChar(6,&#39;name&#39;)">Character 7</div>
+      <div class="char-role" onclick="editChar(6,&#39;role&#39;)">The Seventh Guest</div>
+      <div class="char-section">
+        <div class="char-section-title">🧍 Identity</div>
+        <div class="char-field" onclick="editChar(6,&#39;age&#39;)"><strong>Age</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(6,&#39;actor&#39;)"><strong>Actor</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(6,&#39;physDesc&#39;)"><strong>Physical description</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(6,&#39;costume&#39;)"><strong>Costume</strong><em>click to add</em></div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🧠 Psychology</div>
+        <div class="char-field" onclick="editChar(6,&#39;personality&#39;)"><strong>Personality</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(6,&#39;fear&#39;)"><strong>Greatest Fear</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(6,&#39;arc&#39;)"><strong>Character Arc</strong><em>click to add</em></div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🔪 Mystery Role</div>
+        <div class="char-field" onclick="editChar(6,&#39;motive&#39;)"><strong>Motive</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(6,&#39;secret&#39;)"><strong>Dark Secret</strong><em>click to add</em></div>
+        <div class="char-field" onclick="editChar(6,&#39;keyLine&#39;)"><strong>Key Line</strong><em>click to add</em></div>
+      </div>
+      <div class="char-field" onclick="editChar(6,&#39;notes&#39;)"><strong>Director Notes</strong><em>click to add</em></div>
+    </div></div>
+</section>
+
+<!-- ═══════════ RELATIONSHIPS ═══════════ -->
+<section class="panel" id="panel-relationships">
+  <div class="section-title">🕸️ Character Relationships <span class="badge">Who knows what about whom</span></div>
+  <div class="add-form">
+    <h3>+ Add a relationship</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Character A</label><select id="relA"><option value="Lord Harrington">Lord Harrington</option><option value="Character 2">Character 2</option><option value="Character 3">Character 3</option><option value="Character 4">Character 4</option><option value="Character 5">Character 5</option><option value="Character 6">Character 6</option><option value="Character 7">Character 7</option></select></div>
+      <div class="form-group" style="max-width:160px"><label>Relationship Type</label>
+        <select id="relType">
+          <option>Allies</option><option>Enemies</option><option>Former Lovers</option>
+          <option>Family</option><option>Business Partners</option><option>Blackmailer / Victim</option>
+          <option>Old Friends</option><option>Rivals</option><option>Strangers (seemingly)</option><option>Conspirators</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Character B</label><select id="relB"><option value="Lord Harrington">Lord Harrington</option><option value="Character 2">Character 2</option><option value="Character 3">Character 3</option><option value="Character 4">Character 4</option><option value="Character 5">Character 5</option><option value="Character 6">Character 6</option><option value="Character 7">Character 7</option></select></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="flex:2"><label>Description (what the audience eventually learns)</label>
+        <textarea id="relDesc" placeholder="e.g. Lady Ashford and the Butler were secretly married before the war. Only Lord Harrington knew."></textarea>
+      </div>
+      <div class="form-group" style="max-width:130px"><label>Known to audience</label>
+        <select id="relVisible"><option value="hidden">Hidden at first</option><option value="hinted">Hinted</option><option value="known">Revealed early</option></select>
+      </div>
+    </div>
+    <button class="btn btn-blood" onclick="addRelationship()">Add Relationship</button>
+  </div>
+  <div class="rel-grid" id="relContainer"><div class="empty-state"><span class="ei">🕸️</span>No relationships mapped yet.</div></div>
+</section>
+
+<!-- ═══════════ PLOT ═══════════ -->
+<section class="panel" id="panel-plot">
+  <div class="section-title">📜 Plot Structure</div>
+
+  <div class="subsection">
+    <div class="sub-title">Three-Act Structure</div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">Act I — Setup</div>
+        <p id="actOne" style="font-size:0.82rem">The guests arrive. Tensions simmer. Lord Harrington is found dead before dinner ends.</p>
+        <button class="btn btn-smoke btn-sm" style="margin-top:0.5rem" onclick="editField(&#39;actOne&#39;,&#39;Act I — Setup&#39;)">Edit</button>
+      </div>
+      <div class="card gold">
+        <div class="card-title">Act II — Investigation</div>
+        <p id="actTwo" style="font-size:0.82rem">Accusations fly. Secrets unravel. Every guest has a motive. Red herrings multiply.</p>
+        <button class="btn btn-gold btn-sm" style="margin-top:0.5rem" onclick="editField(&#39;actTwo&#39;,&#39;Act II — Investigation&#39;)">Edit</button>
+      </div>
+      <div class="card smoke">
+        <div class="card-title">Act III — Revelation</div>
+        <p id="actThree" style="font-size:0.82rem">The seventh guest is unmasked. The truth is darker than anyone suspected.</p>
+        <button class="btn btn-smoke btn-sm" style="margin-top:0.5rem" onclick="editField(&#39;actThree&#39;,&#39;Act III — Revelation&#39;)">Edit</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Subplots</div>
+    <div class="add-form">
+      <h3>+ Add a subplot</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Subplot Title</label><input type="text" id="subTitle" placeholder="e.g. The missing inheritance"></div>
+        <div class="form-group" style="flex:2"><label>Description</label><textarea id="subDesc" placeholder="Describe the subplot — who is involved, what it reveals, how it connects to the main mystery"></textarea></div>
+      </div>
+      <button class="btn btn-blood" onclick="addSubplot()">Add Subplot</button>
+    </div>
+    <div id="subplotsContainer"><div class="empty-state"><span class="ei">📜</span>No subplots yet.</div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Story Timeline (Chronological)</div>
+    <div class="add-form">
+      <h3>+ Add timeline event</h3>
+      <div class="form-row">
+        <div class="form-group" style="max-width:150px"><label>Time / Act</label><input type="text" id="tlTime" placeholder="e.g. 7:30pm · Act I"></div>
+        <div class="form-group"><label>Event</label><input type="text" id="tlTitle" placeholder="e.g. The guests arrive at the manor"></div>
+        <div class="form-group" style="max-width:130px"><label>Beat Type</label>
+          <select id="tlType">
+            <option value="normal">Story Beat</option><option value="gold">Revelation</option>
+            <option value="murder">Murder / Death</option><option value="twist">Twist</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group" style="flex:2"><label>Details</label><textarea id="tlDesc" placeholder="What happens? What does the audience learn or suspect?"></textarea></div>
+      </div>
+      <button class="btn btn-blood" onclick="addTimeline()">Add to Timeline</button>
+    </div>
+    <div class="timeline" id="timelineContainer"><div class="tl-item"><div class="tl-dot gold"></div><div class="tl-time">Start here</div><div class="tl-title" style="color:var(--gold-light)">Add your first story beat above</div><div class="tl-desc">Build out your murder mystery from setup to revelation…</div></div></div>
+  </div>
+
+  <div class="subsection">
+    <div class="sub-title">Red Herrings &amp; Twists</div>
+    <div class="add-form">
+      <h3>+ Add a red herring or twist</h3>
+      <div class="form-row">
+        <div class="form-group" style="max-width:130px"><label>Type</label>
+          <select id="rhType"><option>Red Herring</option><option>Plot Twist</option><option>False Lead</option><option>Misdirection</option></select>
+        </div>
+        <div class="form-group"><label>Title</label><input type="text" id="rhTitle" placeholder="e.g. The torn letter"></div>
+        <div class="form-group" style="flex:2"><label>Description</label><textarea id="rhDesc" placeholder="What makes the audience (or characters) believe the wrong thing?"></textarea></div>
+      </div>
+      <button class="btn btn-gold" onclick="addRedHerring()">Add</button>
+    </div>
+    <div id="rhContainer"><div class="empty-state"><span class="ei">🐟</span>No red herrings or twists added yet.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════ SCENES ═══════════ -->
+<section class="panel" id="panel-scenes">
+  <div class="section-title">🎬 Scenes <span class="badge" id="sceneBadge">0 scenes</span></div>
+  <div class="add-form">
+    <h3>+ Add a scene</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Scene Title</label><input type="text" id="scTitle" placeholder="e.g. The Discovery"></div>
+      <div class="form-group" style="max-width:110px"><label>Act</label>
+        <select id="scAct"><option>Act I</option><option>Act II</option><option>Act III</option></select>
+      </div>
+      <div class="form-group"><label>Location</label><input type="text" id="scLoc" placeholder="e.g. The Library"></div>
+      <div class="form-group" style="max-width:120px"><label>Time of Day</label>
+        <select id="scTime"><option>Night</option><option>Dawn</option><option>Morning</option><option>Afternoon</option><option>Dusk</option><option>Unknown</option></select>
+      </div>
+      <div class="form-group" style="max-width:115px"><label>Mood</label>
+        <select id="scMood"><option>Tense</option><option>Eerie</option><option>Shocking</option><option>Suspenseful</option><option>Calm</option><option>Frantic</option><option>Mournful</option><option>Menacing</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="flex:2"><label>What happens / Scene description</label>
+        <textarea id="scDesc" placeholder="What happens in this scene? Who is present? What is revealed or hidden?"></textarea>
+      </div>
+      <div class="form-group"><label>Characters present</label>
+        <textarea id="scChars" placeholder="e.g. Lady Ashford, The Butler, Detective Shaw"></textarea>
+      </div>
+      <div class="form-group" style="max-width:130px"><label>Purpose</label>
+        <select id="scPurpose">
+          <option>Introduce character</option><option>Advance plot</option><option>Plant clue</option>
+          <option>Red herring</option><option>Build tension</option><option>Reveal secret</option>
+          <option>Confrontation</option><option>Comic relief</option><option>Climax</option>
+        </select>
+      </div>
+      <div class="form-group" style="max-width:120px"><label>Status</label>
+        <select id="scStatus"><option value="draft">📝 Draft</option><option value="locked">🔒 Locked</option><option value="done">✅ Filmed</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Shot / Camera Notes</label><input type="text" id="scShots" placeholder="e.g. Close-up on the hand. Slow pan across the room."></div>
+      <div class="form-group"><label>Props needed</label><input type="text" id="scProps" placeholder="e.g. Brandy decanter, candlestick, torn letter"></div>
+    </div>
+    <button class="btn btn-blood" onclick="addScene()">Add Scene</button>
+  </div>
+  <div id="scenesContainer"><div class="empty-state"><span class="ei">🎬</span>No scenes yet. Add your first scene above!</div></div>
+</section>
+
+<!-- ═══════════ LOCATIONS & SETS ═══════════ -->
+<section class="panel" id="panel-locations">
+  <div class="section-title">🏚️ Locations &amp; Sets <span class="badge" id="locBadge">0 locations</span></div>
+  <div class="add-form">
+    <h3>+ Add a location / set</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Location Name</label><input type="text" id="locName" placeholder="e.g. The Library"></div>
+      <div class="form-group" style="max-width:140px"><label>Interior / Exterior</label>
+        <select id="locType"><option>Interior</option><option>Exterior</option><option>Both</option></select>
+      </div>
+      <div class="form-group" style="max-width:140px"><label>Time of Day Used</label>
+        <select id="locTimeUsed"><option>Night only</option><option>Day only</option><option>Day &amp; Night</option><option>Dawn / Dusk</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="flex:2"><label>Atmosphere &amp; Description</label>
+        <textarea id="locAtmos" placeholder="Describe the feel, look, and atmosphere of this location. What makes it distinctive?"></textarea>
+      </div>
+      <div class="form-group"><label>Lighting Notes</label>
+        <textarea id="locLight" placeholder="e.g. Candlelight only. Shadows on the walls. A single oil lamp."></textarea>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Key Props / Set Dressing</label><input type="text" id="locProps" placeholder="e.g. Leather-bound books, globe, fireplace, secret panel"></div>
+      <div class="form-group"><label>Scenes that happen here</label><input type="text" id="locScenes" placeholder="e.g. Scene 1, Scene 4, Climax"></div>
+      <div class="form-group" style="max-width:140px"><label>Real Location / Studio?</label>
+        <select id="locReal"><option>To be decided</option><option>Real location</option><option>Studio set</option><option>Outdoor</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Sound Design Notes</label><input type="text" id="locSound" placeholder="e.g. Ticking clock, rain against windows, distant thunder"></div>
+      <div class="form-group"><label>Costume considerations for this location</label><input type="text" id="locCostume" placeholder="e.g. Characters wear formal dinner attire"></div>
+    </div>
+    <button class="btn btn-smoke" onclick="addLocation()">Add Location</button>
+  </div>
+  <div class="grid-3" id="locsContainer"><div class="empty-state" style="grid-column:1/-1"><span class="ei">🏚️</span>No locations yet.</div></div>
+</section>
+
+<!-- ═══════════ CLUES ═══════════ -->
+<section class="panel" id="panel-clues">
+  <div class="section-title">🔍 Clues &amp; Evidence <span class="badge" id="clueBadge">0 clues</span></div>
+  <div class="add-form">
+    <h3>+ Log a clue or piece of evidence</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Clue / Evidence</label><input type="text" id="clueName" placeholder="e.g. Bloodstained glove in the garden"></div>
+      <div class="form-group" style="max-width:150px"><label>Type</label>
+        <select id="clueType">
+          <option>Physical Evidence</option><option>Witness Statement</option><option>Alibi</option>
+          <option>Motive</option><option>Red Herring</option><option>Weapon</option>
+          <option>Document / Letter</option><option>Location clue</option><option>Overheard conversation</option>
+        </select>
+      </div>
+      <div class="form-group" style="max-width:150px"><label>Points To</label><select id="cluePoints"><option value="">— any / unknown —</option><option value="Lord Harrington">Lord Harrington</option><option value="Character 2">Character 2</option><option value="Character 3">Character 3</option><option value="Character 4">Character 4</option><option value="Character 5">Character 5</option><option value="Character 6">Character 6</option><option value="Character 7">Character 7</option></select></div>
+      <div class="form-group" style="max-width:130px"><label>Revealed in Scene</label><input type="text" id="clueScene" placeholder="e.g. Scene 4"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="flex:2"><label>Full Details</label>
+        <textarea id="clueDetails" placeholder="Where found? Who finds it? What does it suggest? Is it genuine or a plant?"></textarea>
+      </div>
+      <div class="form-group" style="max-width:130px"><label>Is this genuine?</label>
+        <select id="clueGenuine"><option value="yes">Genuine clue</option><option value="red">Red herring</option><option value="partial">Partially true</option></select>
+      </div>
+    </div>
+    <button class="btn btn-blood" onclick="addClue()">Log Clue</button>
+  </div>
+  <div class="clue-board">
+    <div class="clue-board-title">📁 Evidence Locker</div>
+    <div id="cluesContainer"><p style="color:var(--aged);font-size:0.78rem;font-style:italic;">No clues logged yet. The killer is still free…</p></div>
+  </div>
+</section>
+
+<!-- ═══════════ SCRIPT ═══════════ -->
+<section class="panel" id="panel-script">
+  <div class="section-title">📝 Script Fragments <span class="badge">Key dialogue &amp; directions</span></div>
+  <div class="add-form">
+    <h3>+ Add a script fragment</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Scene Slug (INT/EXT · Location · Time)</label><input type="text" id="scrSlug" placeholder="e.g. INT. THE LIBRARY — NIGHT"></div>
+      <div class="form-group" style="max-width:120px"><label>Type</label>
+        <select id="scrType"><option>Action / Direction</option><option>Dialogue</option><option>Both</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="flex:1"><label>Action / Stage Direction</label>
+        <textarea id="scrAction" placeholder="Describe what the camera sees. What happens physically in the scene."></textarea>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group" style="max-width:160px"><label>Character Speaking</label><input type="text" id="scrChar" placeholder="e.g. LADY ASHFORD"></div>
+      <div class="form-group" style="flex:2"><label>Dialogue</label>
+        <textarea id="scrDialogue" placeholder="Write the spoken line(s) here."></textarea>
+      </div>
+      <div class="form-group"><label>Direction / Note (in parentheses)</label><input type="text" id="scrDirection" placeholder="e.g. (quietly, not meeting his eyes)"></div>
+    </div>
+    <button class="btn btn-blood" onclick="addScript()">Add Fragment</button>
+  </div>
+  <div id="scriptContainer"><div class="empty-state"><span class="ei">📝</span>No script fragments yet. Start writing!</div></div>
+</section>
+
+<!-- ═══════════ CASTING ═══════════ -->
+<section class="panel" id="panel-casting">
+  <div class="section-title">🎤 Casting <span class="badge">Who plays whom</span></div>
+  <div class="add-form">
+    <h3>+ Add casting entry</h3>
+    <div class="form-row">
+      <div class="form-group"><label>Character</label><select id="castChar"><option value="Lord Harrington">Lord Harrington</option><option value="Character 2">Character 2</option><option value="Character 3">Character 3</option><option value="Character 4">Character 4</option><option value="Character 5">Character 5</option><option value="Character 6">Character 6</option><option value="Character 7">Character 7</option></select></div>
+      <div class="form-group"><label>Actor / Person being considered</label><input type="text" id="castActor" placeholder="Name of actor or &#39;TBC&#39;"></div>
+      <div class="form-group" style="max-width:140px"><label>Status</label>
+        <select id="castStatus"><option value="confirmed">✅ Confirmed</option><option value="considering">🤔 Considering</option><option value="needed">❓ Still needed</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Notes</label><input type="text" id="castNotes" placeholder="e.g. Has theatre experience, available weekends, strong in dramatic scenes"></div>
+    </div>
+    <button class="btn btn-blood" onclick="addCasting()">Add</button>
+  </div>
+  <div id="castingContainer"><div class="empty-state"><span class="ei">🎤</span>No casting entries yet.</div></div>
+
+  <div style="margin-top:1.5rem">
+    <div class="section-title">🎭 Crew Roles <span class="badge">Behind the camera</span></div>
+    <div class="add-form">
+      <h3>+ Add a crew role</h3>
+      <div class="form-row">
+        <div class="form-group" style="max-width:160px"><label>Role</label>
+          <select id="crewRole">
+            <option>Director</option><option>Writer</option><option>Producer</option><option>Director of Photography</option>
+            <option>Camera Operator</option><option>Sound Recordist</option><option>Editor</option>
+            <option>Costume Designer</option><option>Props Master</option><option>Make-Up Artist</option>
+            <option>Location Manager</option><option>Composer</option><option>Other</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Name</label><input type="text" id="crewName" placeholder="Who is doing this role?"></div>
+        <div class="form-group"><label>Notes</label><input type="text" id="crewNotes" placeholder="e.g. Available all day Saturdays"></div>
+      </div>
+      <button class="btn btn-smoke" onclick="addCrew()">Add Crew</button>
+    </div>
+    <div id="crewContainer"><div class="empty-state"><span class="ei">🎥</span>No crew listed yet.</div></div>
+  </div>
+</section>
+
+<!-- ═══════════ PRODUCTION ═══════════ -->
+<section class="panel" id="panel-production">
+  <div class="section-title">🎥 Production Notes</div>
+
+  <div class="grid-2" style="margin-bottom:1rem">
+    <div class="card gold">
+      <div class="card-title">🎬 Director's Vision</div>
+      <p id="dirVision" style="font-style:italic;font-size:0.82rem">A slow-burn psychological thriller. Every frame a painting — candlelit interiors, shadows that lie, faces that hide everything.</p>
+      <button class="btn btn-gold btn-sm" style="margin-top:0.5rem" onclick="editField(&#39;dirVision&#39;,&#39;Director\&#39;s Vision&#39;)">Edit</button>
+    </div>
+    <div class="card">
+      <div class="card-title">📸 Visual Style</div>
+      <p id="visualRef" style="font-size:0.82rem">Deep burgundy, ivory, candlelight amber. 2.39:1 aspect ratio. Handheld for tension, locked-off for reveals. Natural light where possible.</p>
+      <button class="btn btn-smoke btn-sm" style="margin-top:0.5rem" onclick="editField(&#39;visualRef&#39;,&#39;Visual Style&#39;)">Edit</button>
+    </div>
+    <div class="card smoke">
+      <div class="card-title">🎵 Music &amp; Sound Direction</div>
+      <p id="musicNotes" style="font-size:0.82rem">String quartet. Discordant notes under key scenes. Silence used deliberately. Thunder and rain as atmosphere throughout.</p>
+      <button class="btn btn-smoke btn-sm" style="margin-top:0.5rem" onclick="editField(&#39;musicNotes&#39;,&#39;Music &amp; Sound Direction&#39;)">Edit</button>
+    </div>
+    <div class="card">
+      <div class="card-title">🎽 Costume Direction</div>
+      <p id="costumeNotes" style="font-size:0.82rem">1930s formal English dinner attire. Each character's clothing reflects their personality and secrets. Colours chosen deliberately.</p>
+      <button class="btn btn-smoke btn-sm" style="margin-top:0.5rem" onclick="editField(&#39;costumeNotes&#39;,&#39;Costume Direction&#39;)">Edit</button>
+    </div>
+  </div>
+
+  <div class="section-title">📋 Production Notes Log <span class="badge" id="notesBadge">0 notes</span></div>
+  <div class="add-form">
+    <h3>+ Add production note</h3>
+    <div class="form-row">
+      <div class="form-group" style="max-width:145px"><label>Department</label>
+        <select id="noteDept">
+          <option>Directing</option><option>Writing</option><option>Camera</option><option>Sound</option>
+          <option>Costume</option><option>Locations</option><option>Casting</option><option>Editing</option>
+          <option>Music</option><option>Props</option><option>Make-Up</option><option>General</option>
+        </select>
+      </div>
+      <div class="form-group" style="max-width:120px"><label>From</label><input type="text" id="noteFrom" placeholder="Your name"></div>
+      <div class="form-group" style="flex:2"><label>Note</label>
+        <textarea id="noteText" placeholder="Technical decisions, creative notes, to-do items, things to remember…"></textarea>
+      </div>
+    </div>
+    <button class="btn btn-blood" onclick="addNote()">Add Note</button>
+  </div>
+  <div id="notesContainer"><div class="empty-state"><span class="ei">🎥</span>No production notes yet.</div></div>
+</section>
+
+<!-- ═══════════ IDEAS ═══════════ -->
+<section class="panel" id="panel-ideas">
+  <div class="section-title">💡 Ideas Board <span class="badge">No idea too wild</span></div>
+  <div class="add-form">
+    <h3>+ Pin an idea</h3>
+    <div class="form-row">
+      <div class="form-group" style="max-width:120px"><label>Your Name</label><input type="text" id="ideaAuthor" placeholder="e.g. Ellen"></div>
+      <div class="form-group" style="max-width:140px"><label>Category</label>
+        <select id="ideaCat">
+          <option>Plot Idea</option><option>Character Idea</option><option>Scene Idea</option><option>Dialogue</option>
+          <option>Visual / Shot</option><option>Music / Sound</option><option>Costume</option>
+          <option>Location</option><option>Twist / Reveal</option><option>Title / Marketing</option><option>Other</option>
+        </select>
+      </div>
+      <div class="form-group" style="flex:3"><label>The idea</label>
+        <textarea id="ideaText" placeholder="Write your idea here — the stranger the better. Every great film started with one sentence."></textarea>
+      </div>
+      <div class="form-group" style="max-width:100px"><label>Colour</label>
+        <select id="ideaColor">
+          <option value="yellow">Yellow</option><option value="orange">Orange</option><option value="pink">Pink</option>
+          <option value="blue">Blue</option><option value="green">Green</option><option value="purple">Purple</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn btn-gold" onclick="addIdea()">Pin Idea</button>
+  </div>
+  <div class="sticky-grid" id="ideasContainer">
+    <div class="sticky sticky-yellow" style="position:relative">
+      <button class="del-btn" style="color:rgba(0,0,0,0.35)" onclick="del(&#39;ideas&#39;,0)">✕</button>
+      <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;opacity:0.65">Plot Idea</div>
+      <div>What if the seventh guest was never on the guest list — but Lord Harrington is the only one who knows why they're really here?</div>
+      <div class="sticky-author">Director</div>
+      <div class="sticky-date">26 May 2026</div>
+    </div>
+    <div class="sticky sticky-pink" style="position:relative">
+      <button class="del-btn" style="color:rgba(0,0,0,0.35)" onclick="del(&#39;ideas&#39;,1)">✕</button>
+      <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;opacity:0.65">Twist / Reveal</div>
+      <div>The killer has been helping the investigation the whole time. Their final reveal reframes every scene we've already watched.</div>
+      <div class="sticky-author">Director</div>
+      <div class="sticky-date">26 May 2026</div>
+    </div>
+    <div class="sticky sticky-blue" style="position:relative">
+      <button class="del-btn" style="color:rgba(0,0,0,0.35)" onclick="del(&#39;ideas&#39;,2)">✕</button>
+      <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;opacity:0.65">Visual / Shot</div>
+      <div>Open on a close-up of seven place settings at dinner. One chair is empty. We never find out whose it was meant to be.</div>
+      <div class="sticky-author">Director</div>
+      <div class="sticky-date">26 May 2026</div>
+    </div></div>
+</section>
+
+</main>
+
+<!-- Firebase SDKs -->
+<script src="./today🔪 The Seventh Guest — Film Production Board_files/firebase-app-compat.js"></script>
+<script src="./today🔪 The Seventh Guest — Film Production Board_files/firebase-database-compat.js"></script>
+
+<!-- Login Modal -->
+<div id="loginModal" style="display:none;position:fixed;inset:0;background:rgba(10,6,2,0.92);z-index:9999;display:flex;align-items:center;justify-content:center;">
+  <div style="background:var(--parchment);border:2px solid var(--gold);border-radius:4px;padding:2rem 2.5rem;max-width:420px;width:90%;box-shadow:0 8px 40px rgba(0,0,0,0.7);">
+    <div style="text-align:center;margin-bottom:1.5rem;">
+      <div style="font-family:&#39;Playfair Display&#39;,serif;font-size:1.5rem;color:var(--blood);font-weight:700;">🔪 The Seventh Guest</div>
+      <div style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--mist);margin-top:0.3rem;">Collaborative Production Board</div>
+    </div>
+    <div style="margin-bottom:1rem;">
+      <label style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);font-weight:700;display:block;margin-bottom:0.3rem;">Your Name</label>
+      <input id="loginName" type="text" placeholder="e.g. Christine" style="width:100%;background:white;border:1px solid var(--aged);border-radius:2px;font-family:&#39;Courier Prime&#39;,monospace;font-size:0.9rem;color:var(--ink);padding:7px 10px;outline:none;box-sizing:border-box;">
+    </div>
+    <div style="margin-bottom:1.4rem;">
+      <label style="font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--mist);font-weight:700;display:block;margin-bottom:0.3rem;">Firebase Database URL</label>
+      <input id="loginUrl" type="text" placeholder="https://your-project-default-rtdb.firebaseio.com/" style="width:100%;background:white;border:1px solid var(--aged);border-radius:2px;font-family:&#39;Courier Prime&#39;,monospace;font-size:0.78rem;color:var(--ink);padding:7px 10px;outline:none;box-sizing:border-box;">
+      <div style="font-size:0.62rem;color:var(--mist);margin-top:0.3rem;">Paste your Firebase Realtime Database URL here.</div>
+    </div>
+    <button onclick="doLogin()" style="width:100%;font-family:&#39;Special Elite&#39;,cursive;font-size:0.85rem;letter-spacing:0.12em;text-transform:uppercase;background:var(--blood);color:var(--parchment);border:none;border-radius:2px;padding:10px;cursor:pointer;">
+      Enter the Manor →
+    </button>
+    <div id="loginError" style="color:var(--blood);font-size:0.72rem;margin-top:0.6rem;text-align:center;display:none;"></div>
+  </div>
+</div>
+
+<!-- Sync status indicator -->
+<div id="syncStatus" style="position:fixed;bottom:12px;right:14px;font-family:&#39;Courier Prime&#39;,monospace;font-size:0.65rem;letter-spacing:0.08em;padding:4px 10px;border-radius:2px;z-index:1000;display:none;"></div>
+
+<script>
+const KEY = 'seventhguest_v3';
+const FB_KEY = 'seventhguest_firebase';
+
+let S = {};
+let db = null;
+let dbRef = null;
+let currentUser = '';
+let isSyncing = false;
+
+const DEFAULT_S = {
+  filmTitle:'The Seventh Guest', genreTone:'Murder Mystery / Psychological Thriller — slow-burn, atmospheric, 1930s English manor.',
+  logline:'When a wealthy aristocrat is found dead at his own dinner party, each of the seven guests holds a secret — and only one of them is a killer.',
+  victim:'Lord Harrington — found slumped in the library, a poisoned glass of brandy at his side. The evening had barely begun.',
+  setting:'Harrington Manor, rural England. October 1934. A storm has cut the telephone lines. No one can leave.',
+  mystery:'Who is the seventh guest — the one who was not invited — and why did they come?',
+  actOne:'The guests arrive at Harrington Manor for a dinner party. Tensions simmer beneath polite conversation. Before dessert, Lord Harrington is found dead.',
+  actTwo:'Accusations fly. Each guest has a motive and an alibi. Secrets begin to unravel. The uninvited seventh guest becomes the central focus.',
+  actThree:'The truth is revealed — the killer is unmasked in a shocking confrontation. Nothing was as it appeared.',
+  dirVision:'A slow-burn psychological thriller. Every frame a painting — candlelit interiors, shadows that lie, faces that hide everything.',
+  visualRef:'Deep burgundy, ivory, candlelight amber. 2.39:1 aspect ratio. Handheld for tension, locked-off for reveals. Natural light where possible.',
+  musicNotes:'String quartet. Discordant notes under key scenes. Silence used deliberately. Thunder and rain as atmosphere throughout.',
+  costumeNotes:"1930s formal English dinner attire. Each character's clothing reflects their personality and secrets. Colours chosen deliberately.",
+  characters:[
+    {name:'Lord Harrington',role:'The Victim',age:'58',actor:'',physDesc:'Silver-haired, imposing, a man used to commanding rooms.',personality:'Arrogant, secretive, charming when it suited him.',fear:'That his past would destroy everything he had built.',arc:'Seen only in flashbacks after Act I — the more we learn, the more complex he becomes.',keyLine:'"I have invited exactly the people I intended. No more, no less."',motive:'N/A — the victim',secret:'His entire fortune was built on a crime committed thirty years ago.',costume:'Black dinner jacket, gold cufflinks, a ring he never removes.',notes:''},
+    {name:'Character 2',role:'The Spouse',age:'',actor:'',physDesc:'',personality:'',fear:'',arc:'',keyLine:'',motive:'',secret:'',costume:'',notes:''},
+    {name:'Character 3',role:'The Butler',age:'',actor:'',physDesc:'',personality:'',fear:'',arc:'',keyLine:'',motive:'',secret:'',costume:'',notes:''},
+    {name:'Character 4',role:'The Business Partner',age:'',actor:'',physDesc:'',personality:'',fear:'',arc:'',keyLine:'',motive:'',secret:'',costume:'',notes:''},
+    {name:'Character 5',role:'The Old Friend',age:'',actor:'',physDesc:'',personality:'',fear:'',arc:'',keyLine:'',motive:'',secret:'',costume:'',notes:''},
+    {name:'Character 6',role:'The Detective',age:'',actor:'',physDesc:'',personality:'',fear:'',arc:'',keyLine:'',motive:'',secret:'',costume:'',notes:''},
+    {name:'Character 7',role:'The Seventh Guest',age:'',actor:'',physDesc:'',personality:'',fear:'',arc:'',keyLine:'',motive:'',secret:'',costume:'',notes:''},
+  ],
+  relationships:[],subplots:[],timeline:[],redHerrings:[],
+  scenes:[],locations:[],clues:[],script:[],casting:[],crew:[],
+  ideas:[
+    {author:'Director',cat:'Plot Idea',text:"What if the seventh guest was never on the guest list — but Lord Harrington is the only one who knows why they're really here?",color:'yellow',date:'26 May 2026'},
+    {author:'Director',cat:'Twist / Reveal',text:"The killer has been helping the investigation the whole time. Their final reveal reframes every scene we've already watched.",color:'pink',date:'26 May 2026'},
+    {author:'Director',cat:'Visual / Shot',text:"Open on a close-up of seven place settings at dinner. One chair is empty. We never find out whose it was meant to be.",color:'blue',date:'26 May 2026'},
+  ],
+  notes:[],
+  bulletins:[{name:'Director',msg:'Welcome to The Seventh Guest production board! Every tab has a different part of the film to build. Click fields to edit, add scenes, locations, clues, relationships — everything lives here. Share this URL with the whole team and edits appear instantly.',date:'26 May 2026'}]
+};
+
+function td(){return new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});}
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ── SYNC STATUS UI ──
+function showSync(msg, colour){
+  const el = document.getElementById('syncStatus');
+  if(!el) return;
+  el.style.display = 'block';
+  el.style.background = colour || '#1a2810';
+  el.style.color = colour ? '#fff' : '#6aaa4a';
+  el.style.border = '1px solid ' + (colour || '#4aaa4a');
+  el.textContent = msg;
+}
+function hideSync(){ setTimeout(()=>{ const el=document.getElementById('syncStatus'); if(el) el.style.display='none'; }, 2000); }
+
+// ── FIREBASE SAVE / LOAD ──
+function save(){
+  if(dbRef){
+    isSyncing = true;
+    showSync('💾 Saving…');
+    dbRef.set(S).then(()=>{ showSync('✅ Saved — ' + currentUser); hideSync(); isSyncing=false; })
+      .catch(e=>{ showSync('⚠️ Save failed', '#8b1a1a'); isSyncing=false; });
+  }
+}
+
+function startFirebaseListener(){
+  dbRef.on('value', snapshot => {
+    const data = snapshot.val();
+    if(data){
+      S = data;
+      // Ensure arrays exist (safety net)
+      ['relationships','subplots','timeline','redHerrings','scenes','locations','clues','script','casting','crew','ideas','notes','bulletins','characters'].forEach(k=>{
+        if(!S[k]) S[k] = DEFAULT_S[k] || [];
+      });
+      renderAll();
+      showSync('🔄 Board updated'); hideSync();
+    } else {
+      // First time — push defaults
+      S = JSON.parse(JSON.stringify(DEFAULT_S));
+      dbRef.set(S);
+      renderAll();
+    }
+  });
+}
+
+// ── LOGIN ──
+function doLogin(){
+  const name = document.getElementById('loginName').value.trim();
+  const url  = document.getElementById('loginUrl').value.trim();
+  const errEl = document.getElementById('loginError');
+  errEl.style.display = 'none';
+
+  if(!name){ errEl.textContent = 'Please enter your name.'; errEl.style.display='block'; return; }
+  if(!url || !url.includes('firebaseio.com')){ errEl.textContent = 'Please enter a valid Firebase URL ending in .firebaseio.com/'; errEl.style.display='block'; return; }
+
+  // Save credentials
+  localStorage.setItem(FB_KEY, JSON.stringify({name, url}));
+  currentUser = name;
+
+  // Init Firebase
+  try {
+    const cleanUrl = url.endsWith('/') ? url.slice(0,-1) : url;
+    // Extract project id from URL for app name uniqueness
+    const appName = 'seventhguest-' + Date.now();
+    const app = firebase.initializeApp({ databaseURL: cleanUrl }, appName);
+    db = firebase.database(app);
+    dbRef = db.ref('board');
+
+    document.getElementById('loginModal').style.display = 'none';
+    updateUserBadge();
+    startFirebaseListener();
+  } catch(e) {
+    errEl.textContent = 'Could not connect: ' + e.message;
+    errEl.style.display = 'block';
+  }
+}
+
+function updateUserBadge(){
+  const sub = document.querySelector('.masthead-sub');
+  if(sub) sub.textContent = '7 Characters · Murder Mystery · Signed in as ' + currentUser + ' · Live Collaboration Active';
+}
+
+function load(){
+  // Check for saved credentials
+  const saved = localStorage.getItem(FB_KEY);
+  if(saved){
+    try {
+      const creds = JSON.parse(saved);
+      document.getElementById('loginName').value = creds.name || '';
+      document.getElementById('loginUrl').value  = creds.url  || '';
+    } catch(e){}
+  }
+  // Show modal
+  document.getElementById('loginModal').style.display = 'flex';
+}
+
+function switchTab(id,btn){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+id).classList.add('active');
+  btn.classList.add('active');
+  renderAll();
+}
+
+function editField(id,label){
+  const el=document.getElementById(id);
+  if(!el)return;
+  const v=prompt(label+':',S[id]||el.textContent);
+  if(v!==null){S[id]=v;el.textContent=v;save();}
+}
+
+function updateStats(){
+  const s=id=>document.getElementById(id);
+  if(s('st-chars'))s('st-chars').textContent=S.characters.length;
+  if(s('st-scenes'))s('st-scenes').textContent=S.scenes.length;
+  if(s('st-locs'))s('st-locs').textContent=S.locations.length;
+  if(s('st-clues'))s('st-clues').textContent=S.clues.length;
+  if(s('st-ideas'))s('st-ideas').textContent=S.ideas.length;
+  if(s('st-notes'))s('st-notes').textContent=S.notes.length;
+  if(s('sceneBadge'))s('sceneBadge').textContent=S.scenes.length+' scene'+(S.scenes.length!==1?'s':'');
+  if(s('locBadge'))s('locBadge').textContent=S.locations.length+' location'+(S.locations.length!==1?'s':'');
+  if(s('clueBadge'))s('clueBadge').textContent=S.clues.length+' clue'+(S.clues.length!==1?'s':'');
+  if(s('notesBadge'))s('notesBadge').textContent=S.notes.length+' note'+(S.notes.length!==1?'s':'');
+}
+
+function populateCharSelects(){
+  const names=S.characters.map(c=>c.name);
+  ['relA','relB','cluePoints','castChar'].forEach(sid=>{
+    const el=document.getElementById(sid);
+    if(!el)return;
+    const prev=el.value;
+    el.innerHTML=(sid==='cluePoints'?'<option value="">— any / unknown —</option>':'')+names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
+    if(prev)el.value=prev;
+  });
+}
+
+// ── OVERVIEW ──
+function renderOverview(){
+  ['filmTitle','genreTone','logline','victim','setting','mystery','dirVision','visualRef','musicNotes','costumeNotes'].forEach(k=>{
+    const el=document.getElementById(k);
+    if(el&&S[k])el.textContent=S[k];
+  });
+  const bc=document.getElementById('bulletins');
+  if(bc)bc.innerHTML=S.bulletins.map(b=>`<div class="note-card"><div class="note-meta"><span>${esc(b.name)}</span> · ${esc(b.date)}</div><div class="note-text">${esc(b.msg)}</div></div>`).join('')||'';
+}
+function addBulletin(){
+  const n=document.getElementById('bullName').value.trim()||'Anonymous';
+  const m=document.getElementById('bullMsg').value.trim();
+  if(!m)return;
+  S.bulletins.unshift({name:n,msg:m,date:td()});
+  document.getElementById('bullMsg').value='';
+  save();renderAll();
+}
+
+// ── CHARACTERS ──
+function renderChars(){
+  const g=document.getElementById('charGrid');
+  if(!g)return;
+  g.innerHTML=S.characters.map((c,i)=>`
+    <div class="char-card">
+      <div class="char-number">${i+1}</div>
+      <div class="char-name" onclick="editChar(${i},'name')">${esc(c.name)||'Unnamed'}</div>
+      <div class="char-role" onclick="editChar(${i},'role')">${esc(c.role)||'No role set'}</div>
+      <div class="char-section">
+        <div class="char-section-title">🧍 Identity</div>
+        <div class="char-field" onclick="editChar(${i},'age')"><strong>Age</strong>${c.age?esc(c.age):'<em>click to add</em>'}</div>
+        <div class="char-field" onclick="editChar(${i},'actor')"><strong>Actor</strong>${c.actor?esc(c.actor):'<em>click to add</em>'}</div>
+        <div class="char-field" onclick="editChar(${i},'physDesc')"><strong>Physical description</strong>${c.physDesc?esc(c.physDesc):'<em>click to add</em>'}</div>
+        <div class="char-field" onclick="editChar(${i},'costume')"><strong>Costume</strong>${c.costume?esc(c.costume):'<em>click to add</em>'}</div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🧠 Psychology</div>
+        <div class="char-field" onclick="editChar(${i},'personality')"><strong>Personality</strong>${c.personality?esc(c.personality):'<em>click to add</em>'}</div>
+        <div class="char-field" onclick="editChar(${i},'fear')"><strong>Greatest Fear</strong>${c.fear?esc(c.fear):'<em>click to add</em>'}</div>
+        <div class="char-field" onclick="editChar(${i},'arc')"><strong>Character Arc</strong>${c.arc?esc(c.arc):'<em>click to add</em>'}</div>
+      </div>
+      <div class="char-section">
+        <div class="char-section-title">🔪 Mystery Role</div>
+        <div class="char-field" onclick="editChar(${i},'motive')"><strong>Motive</strong>${c.motive?esc(c.motive):'<em>click to add</em>'}</div>
+        <div class="char-field" onclick="editChar(${i},'secret')"><strong>Dark Secret</strong>${c.secret?esc(c.secret):'<em>click to add</em>'}</div>
+        <div class="char-field" onclick="editChar(${i},'keyLine')"><strong>Key Line</strong>${c.keyLine?'<em style="font-style:italic">'+esc(c.keyLine)+'</em>':'<em>click to add</em>'}</div>
+      </div>
+      <div class="char-field" onclick="editChar(${i},'notes')"><strong>Director Notes</strong>${c.notes?esc(c.notes):'<em>click to add</em>'}</div>
+    </div>`).join('');
+  populateCharSelects();
+}
+function editChar(i,field){
+  const labels={name:'Character Name',role:'Role / Title',age:'Age',actor:'Actor',physDesc:'Physical Description',personality:'Personality',fear:'Greatest Fear',arc:'Character Arc',motive:'Motive',secret:'Dark Secret',keyLine:'Key Dialogue Line',costume:'Costume',notes:'Director Notes'};
+  const v=prompt(labels[field]+':',S.characters[i][field]||'');
+  if(v!==null){S.characters[i][field]=v;save();renderAll();}
+}
+
+// ── RELATIONSHIPS ──
+function addRelationship(){
+  const a=document.getElementById('relA').value;
+  const b=document.getElementById('relB').value;
+  const desc=document.getElementById('relDesc').value.trim();
+  if(!a||!b||!desc)return alert('Fill in both characters and a description.');
+  if(a===b)return alert('Choose two different characters.');
+  S.relationships.push({a,b,type:document.getElementById('relType').value,desc,visible:document.getElementById('relVisible').value});
+  document.getElementById('relDesc').value='';
+  save();renderAll();
+}
+function renderRelationships(){
+  const c=document.getElementById('relContainer');
+  if(!c)return;
+  if(!S.relationships.length){c.innerHTML='<div class="empty-state"><span class="ei">🕸️</span>No relationships mapped yet.</div>';return;}
+  const visLabels={hidden:'🤫 Hidden at first',hinted:'👁️ Hinted',known:'📢 Revealed early'};
+  c.innerHTML=S.relationships.map((r,i)=>`
+    <div class="rel-card" style="position:relative">
+      <button class="del-btn" onclick="del('relationships',${i})">✕</button>
+      <div class="rel-pair">${esc(r.a)} ↔ ${esc(r.b)}</div>
+      <div class="rel-type">${esc(r.type)} · ${visLabels[r.visible]||''}</div>
+      <div class="rel-desc">${esc(r.desc)}</div>
+    </div>`).join('');
+}
+
+// ── PLOT ──
+function addSubplot(){
+  const t=document.getElementById('subTitle').value.trim();
+  const d=document.getElementById('subDesc').value.trim();
+  if(!t)return alert('Add a subplot title.');
+  S.subplots.push({title:t,desc:d});
+  document.getElementById('subTitle').value='';document.getElementById('subDesc').value='';
+  save();renderAll();
+}
+function renderSubplots(){
+  const c=document.getElementById('subplotsContainer');
+  if(!c)return;
+  if(!S.subplots.length){c.innerHTML='<div class="empty-state"><span class="ei">📜</span>No subplots yet.</div>';return;}
+  c.innerHTML=S.subplots.map((s,i)=>`<div class="note-card" style="border-left-color:var(--gold);position:relative"><button class="del-btn" onclick="del('subplots',${i})">✕</button><div class="note-meta" style="color:var(--gold)"><span style="color:var(--gold)">${esc(s.title)}</span></div><div class="note-text">${esc(s.desc)}</div></div>`).join('');
+}
+function addRedHerring(){
+  const t=document.getElementById('rhTitle').value.trim();
+  const d=document.getElementById('rhDesc').value.trim();
+  if(!t)return alert('Add a title.');
+  S.redHerrings.push({type:document.getElementById('rhType').value,title:t,desc:d});
+  document.getElementById('rhTitle').value='';document.getElementById('rhDesc').value='';
+  save();renderAll();
+}
+function renderRedHerrings(){
+  const c=document.getElementById('rhContainer');
+  if(!c)return;
+  if(!S.redHerrings.length){c.innerHTML='<div class="empty-state"><span class="ei">🐟</span>No red herrings or twists added yet.</div>';return;}
+  const cols={Herring:'var(--gold)','Twist':'var(--blood-light)','Lead':'var(--mist)','Misdirection':'var(--smoke)'};
+  c.innerHTML=S.redHerrings.map((r,i)=>`<div class="note-card" style="border-left-color:var(--gold-light);position:relative"><button class="del-btn" onclick="del('redHerrings',${i})">✕</button><div class="note-meta"><span style="color:var(--gold-light)">${esc(r.type)} · ${esc(r.title)}</span></div><div class="note-text">${esc(r.desc)}</div></div>`).join('');
+}
+function addTimeline(){
+  const t=document.getElementById('tlTitle').value.trim();
+  if(!t)return alert('Add an event title.');
+  S.timeline.push({time:document.getElementById('tlTime').value.trim(),title:t,type:document.getElementById('tlType').value,desc:document.getElementById('tlDesc').value.trim()});
+  document.getElementById('tlTime').value='';document.getElementById('tlTitle').value='';document.getElementById('tlDesc').value='';
+  save();renderAll();
+}
+function renderTimeline(){
+  const c=document.getElementById('timelineContainer');
+  if(!c)return;
+  if(!S.timeline.length){
+    c.innerHTML=`<div class="tl-item"><div class="tl-dot gold"></div><div class="tl-time">Start here</div><div class="tl-title" style="color:var(--gold-light)">Add your first story beat above</div><div class="tl-desc">Build out your murder mystery from setup to revelation…</div></div>`;
+    return;
+  }
+  const cols={normal:'var(--parchment)',gold:'var(--gold-light)',murder:'var(--blood-light)',twist:'#a0c0ff'};
+  c.innerHTML=S.timeline.map((t,i)=>`
+    <div class="tl-item" style="position:relative">
+      <button class="del-btn" style="top:0;right:0" onclick="del('timeline',${i})">✕</button>
+      <div class="tl-dot ${t.type==='murder'||t.type==='gold'?t.type:''}"></div>
+      ${t.time?`<div class="tl-time">${esc(t.time)}</div>`:''}
+      <div class="tl-title" style="color:${cols[t.type]||cols.normal}">${esc(t.title)}</div>
+      ${t.desc?`<div class="tl-desc">${esc(t.desc)}</div>`:''}
+    </div>`).join('');
+}
+
+// ── SCENES ──
+function addScene(){
+  const t=document.getElementById('scTitle').value.trim();
+  if(!t)return alert('Add a scene title.');
+  S.scenes.push({title:t,act:document.getElementById('scAct').value,loc:document.getElementById('scLoc').value.trim(),
+    time:document.getElementById('scTime').value,mood:document.getElementById('scMood').value,
+    desc:document.getElementById('scDesc').value.trim(),chars:document.getElementById('scChars').value.trim(),
+    purpose:document.getElementById('scPurpose').value,status:document.getElementById('scStatus').value,
+    shots:document.getElementById('scShots').value.trim(),props:document.getElementById('scProps').value.trim(),
+    num:S.scenes.length+1});
+  ['scTitle','scLoc','scDesc','scChars','scShots','scProps'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  save();renderAll();
+}
+function renderScenes(){
+  const c=document.getElementById('scenesContainer');
+  if(!c)return;
+  if(!S.scenes.length){c.innerHTML='<div class="empty-state"><span class="ei">🎬</span>No scenes yet. Add your first scene above!</div>';return;}
+  c.innerHTML=S.scenes.map((s,i)=>`
+    <div class="scene-card">
+      <button class="del-btn" onclick="del('scenes',${i})">✕</button>
+      <div class="scene-num">Scene ${s.num} · ${esc(s.act)}</div>
+      <div class="scene-title-text">${esc(s.title)}</div>
+      <div class="scene-meta">
+        ${s.loc?`<span class="tag tag-loc">📍 ${esc(s.loc)}</span>`:''}
+        <span class="tag tag-time">🕐 ${esc(s.time)}</span>
+        <span class="tag tag-mood">${esc(s.mood)}</span>
+        <span class="tag tag-act">${esc(s.purpose)}</span>
+        <span class="tag tag-status-${s.status}">${s.status==='draft'?'📝 Draft':s.status==='locked'?'🔒 Locked':'✅ Filmed'}</span>
+      </div>
+      ${s.desc?`<div class="scene-body" style="margin-bottom:0.4rem">${esc(s.desc)}</div>`:''}
+      ${s.chars?`<div class="scene-body"><strong style="font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--mist)">Characters: </strong>${esc(s.chars)}</div>`:''}
+      ${s.shots?`<div class="scene-body"><strong style="font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--mist)">Camera: </strong>${esc(s.shots)}</div>`:''}
+      ${s.props?`<div class="scene-body"><strong style="font-size:0.65rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--mist)">Props: </strong>${esc(s.props)}</div>`:''}
+    </div>`).join('');
+}
+
+// ── LOCATIONS ──
+function addLocation(){
+  const n=document.getElementById('locName').value.trim();
+  if(!n)return alert('Add a location name.');
+  S.locations.push({name:n,type:document.getElementById('locType').value,timeUsed:document.getElementById('locTimeUsed').value,
+    atmos:document.getElementById('locAtmos').value.trim(),light:document.getElementById('locLight').value.trim(),
+    props:document.getElementById('locProps').value.trim(),scenes:document.getElementById('locScenes').value.trim(),
+    real:document.getElementById('locReal').value,sound:document.getElementById('locSound').value.trim(),
+    costume:document.getElementById('locCostume').value.trim()});
+  ['locName','locAtmos','locLight','locProps','locScenes','locSound','locCostume'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  save();renderAll();
+}
+function renderLocations(){
+  const c=document.getElementById('locsContainer');
+  if(!c)return;
+  if(!S.locations.length){c.innerHTML='<div class="empty-state" style="grid-column:1/-1"><span class="ei">🏚️</span>No locations yet.</div>';return;}
+  c.innerHTML=S.locations.map((l,i)=>`
+    <div class="loc-card" style="position:relative">
+      <button class="del-btn" onclick="del('locations',${i})">✕</button>
+      <div class="loc-name">${esc(l.name)}</div>
+      <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.5rem">
+        <span class="tag tag-loc">${esc(l.type)}</span>
+        <span class="tag tag-time">${esc(l.timeUsed)}</span>
+        <span class="tag tag-mood">${esc(l.real)}</span>
+      </div>
+      ${l.atmos?`<div class="loc-field"><strong>Atmosphere</strong>${esc(l.atmos)}</div>`:''}
+      ${l.light?`<div class="loc-field"><strong>Lighting</strong>${esc(l.light)}</div>`:''}
+      ${l.props?`<div class="loc-field"><strong>Props & Set Dressing</strong>${esc(l.props)}</div>`:''}
+      ${l.sound?`<div class="loc-field"><strong>Sound Design</strong>${esc(l.sound)}</div>`:''}
+      ${l.costume?`<div class="loc-field"><strong>Costume Notes</strong>${esc(l.costume)}</div>`:''}
+      ${l.scenes?`<div class="loc-field"><strong>Used in Scenes</strong>${esc(l.scenes)}</div>`:''}
+    </div>`).join('');
+}
+
+// ── CLUES ──
+const clueIcons={'Physical Evidence':'🧤','Witness Statement':'👁️','Alibi':'🗓️','Motive':'💰','Red Herring':'🐟','Weapon':'🔪','Document / Letter':'📄','Location clue':'📍','Overheard conversation':'👂'};
+function addClue(){
+  const n=document.getElementById('clueName').value.trim();
+  if(!n)return alert('Name the clue.');
+  S.clues.push({name:n,type:document.getElementById('clueType').value,points:document.getElementById('cluePoints').value,
+    scene:document.getElementById('clueScene').value.trim(),details:document.getElementById('clueDetails').value.trim(),
+    genuine:document.getElementById('clueGenuine').value,date:td()});
+  ['clueName','clueScene','clueDetails'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  save();renderAll();
+}
+function renderClues(){
+  const c=document.getElementById('cluesContainer');
+  if(!c)return;
+  if(!S.clues.length){c.innerHTML='<p style="color:var(--aged);font-size:0.78rem;font-style:italic;">No clues logged yet. The killer is still free…</p>';return;}
+  const genuineLabel={yes:'✅ Genuine',red:'🐟 Red Herring',partial:'⚠️ Partially true'};
+  c.innerHTML=S.clues.map((cl,i)=>`
+    <div class="clue-item" style="position:relative">
+      <button class="del-btn" style="top:4px;right:4px" onclick="del('clues',${i})">✕</button>
+      <div class="clue-icon">${clueIcons[cl.type]||'📌'}</div>
+      <div class="clue-text">
+        <strong>${esc(cl.type)} · ${genuineLabel[cl.genuine]||''} ${cl.points?'· Points to: '+esc(cl.points):''} ${cl.scene?'· '+esc(cl.scene):''}</strong>
+        <span style="font-weight:600;color:var(--parchment);font-size:0.82rem">${esc(cl.name)}</span>
+        ${cl.details?'<br><span style="opacity:0.85">'+esc(cl.details)+'</span>':''}
+      </div>
+    </div>`).join('');
+}
+
+// ── SCRIPT ──
+function addScript(){
+  const slug=document.getElementById('scrSlug').value.trim();
+  const action=document.getElementById('scrAction').value.trim();
+  const char=document.getElementById('scrChar').value.trim();
+  const dialogue=document.getElementById('scrDialogue').value.trim();
+  const dir=document.getElementById('scrDirection').value.trim();
+  if(!slug&&!action&&!dialogue)return alert('Add at least a scene slug, action, or dialogue.');
+  S.script.push({slug,type:document.getElementById('scrType').value,action,char,dialogue,dir});
+  ['scrSlug','scrAction','scrChar','scrDialogue','scrDirection'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});
+  save();renderAll();
+}
+function renderScript(){
+  const c=document.getElementById('scriptContainer');
+  if(!c)return;
+  if(!S.script.length){c.innerHTML='<div class="empty-state"><span class="ei">📝</span>No script fragments yet. Start writing!</div>';return;}
+  c.innerHTML=S.script.map((s,i)=>`
+    <div class="script-block">
+      <button class="del-btn" onclick="del('script',${i})">✕</button>
+      ${s.slug?`<div class="script-slug">${esc(s.slug)}</div>`:''}
+      ${s.action?`<div class="script-action">${esc(s.action)}</div>`:''}
+      ${s.char?`<div class="script-char">${esc(s.char)}</div>`:''}
+      ${s.dir?`<div class="script-direction">(${esc(s.dir)})</div>`:''}
+      ${s.dialogue?`<div class="script-dialogue">${esc(s.dialogue)}</div>`:''}
+    </div>`).join('');
+}
+
+// ── CASTING ──
+function addCasting(){
+  const ch=document.getElementById('castChar').value;
+  const actor=document.getElementById('castActor').value.trim();
+  if(!ch||!actor)return alert('Select a character and enter an actor name.');
+  S.casting.push({char:ch,actor,status:document.getElementById('castStatus').value,notes:document.getElementById('castNotes').value.trim()});
+  document.getElementById('castActor').value='';document.getElementById('castNotes').value='';
+  save();renderAll();
+}
+function addCrew(){
+  const role=document.getElementById('crewRole').value;
+  const name=document.getElementById('crewName').value.trim();
+  if(!name)return alert('Enter a name.');
+  S.crew.push({role,name,notes:document.getElementById('crewNotes').value.trim()});
+  document.getElementById('crewName').value='';document.getElementById('crewNotes').value='';
+  save();renderAll();
+}
+function getInitials(name){return name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();}
+function renderCasting(){
+  const c=document.getElementById('castingContainer');
+  if(c){
+    if(!S.casting.length){c.innerHTML='<div class="empty-state"><span class="ei">🎤</span>No casting entries yet.</div>';}
+    else{c.innerHTML=S.casting.map((ca,i)=>`
+      <div class="cast-row" style="position:relative">
+        <button class="del-btn" onclick="del('casting',${i})">✕</button>
+        <div class="cast-initials">${getInitials(ca.actor)}</div>
+        <div class="cast-info">
+          <div class="cast-name">${esc(ca.actor)}</div>
+          <div class="cast-role">${esc(ca.char)}</div>
+          ${ca.notes?`<div style="font-size:0.72rem;color:var(--mist);margin-top:2px">${esc(ca.notes)}</div>`:''}
+        </div>
+        <span class="cast-status cast-${ca.status}">${ca.status==='confirmed'?'✅ Confirmed':ca.status==='considering'?'🤔 Considering':'❓ Needed'}</span>
+      </div>`).join('');}
+  }
+  const cr=document.getElementById('crewContainer');
+  if(cr){
+    if(!S.crew.length){cr.innerHTML='<div class="empty-state"><span class="ei">🎥</span>No crew listed yet.</div>';}
+    else{cr.innerHTML=S.crew.map((cr2,i)=>`
+      <div class="cast-row" style="position:relative">
+        <button class="del-btn" onclick="del('crew',${i})">✕</button>
+        <div class="cast-initials" style="background:var(--smoke)">${getInitials(cr2.name)}</div>
+        <div class="cast-info">
+          <div class="cast-name">${esc(cr2.name)}</div>
+          <div class="cast-role">${esc(cr2.role)}</div>
+          ${cr2.notes?`<div style="font-size:0.72rem;color:var(--mist);margin-top:2px">${esc(cr2.notes)}</div>`:''}
+        </div>
+      </div>`).join('');}
+  }
+}
+
+// ── PRODUCTION NOTES ──
+function addNote(){
+  const t=document.getElementById('noteText').value.trim();
+  if(!t)return alert('Write a note.');
+  S.notes.unshift({dept:document.getElementById('noteDept').value,from:document.getElementById('noteFrom').value.trim()||'Anonymous',text:t,date:td()});
+  document.getElementById('noteText').value='';
+  save();renderAll();
+}
+function renderNotes(){
+  const c=document.getElementById('notesContainer');
+  if(!c)return;
+  if(!S.notes.length){c.innerHTML='<div class="empty-state"><span class="ei">🎥</span>No production notes yet.</div>';return;}
+  c.innerHTML=S.notes.map((n,i)=>`<div class="note-card" style="position:relative"><button class="del-btn" onclick="del('notes',${i})">✕</button><div class="note-meta"><span>${esc(n.dept)}</span> · ${esc(n.from)} · ${esc(n.date)}</div><div class="note-text">${esc(n.text)}</div></div>`).join('');
+}
+
+// ── IDEAS ──
+function addIdea(){
+  const t=document.getElementById('ideaText').value.trim();
+  if(!t)return alert('Write your idea!');
+  S.ideas.unshift({author:document.getElementById('ideaAuthor').value.trim()||'Anonymous',cat:document.getElementById('ideaCat').value,text:t,color:document.getElementById('ideaColor').value,date:td()});
+  document.getElementById('ideaText').value='';
+  save();renderAll();
+}
+function renderIdeas(){
+  const c=document.getElementById('ideasContainer');
+  if(!c)return;
+  if(!S.ideas.length){c.innerHTML='<div class="empty-state" style="grid-column:1/-1"><span class="ei">💡</span>No ideas yet. Be the first!</div>';return;}
+  c.innerHTML=S.ideas.map((idea,i)=>`
+    <div class="sticky sticky-${idea.color}" style="position:relative">
+      <button class="del-btn" style="color:rgba(0,0,0,0.35)" onclick="del('ideas',${i})">✕</button>
+      <div style="font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.3rem;opacity:0.65">${esc(idea.cat)}</div>
+      <div>${esc(idea.text)}</div>
+      <div class="sticky-author">${esc(idea.author)}</div>
+      <div class="sticky-date">${esc(idea.date)}</div>
+    </div>`).join('');
+}
+
+// ── DELETE ──
+function del(arr,i){
+  if(confirm('Remove this item?')){S[arr].splice(i,1);save();renderAll();}
+}
+
+// ── RENDER ALL ──
+function renderAll(){
+  renderOverview();renderChars();renderRelationships();
+  renderSubplots();renderTimeline();renderRedHerrings();
+  renderScenes();renderLocations();renderClues();
+  renderScript();renderCasting();renderNotes();renderIdeas();
+  updateStats();populateCharSelects();
+}
+
+load(); // Shows login modal; renderAll() is called after Firebase connects
+</script>
+
+
+</body></html>
